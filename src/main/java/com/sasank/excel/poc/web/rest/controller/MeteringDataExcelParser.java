@@ -33,8 +33,8 @@ public class MeteringDataExcelParser {
         Set<MonthlyMeterData> regionalMonthlyMeteringData = null;
         try {
             regionalMonthlyMeteringData = _meteringDataExcelParseService
-                    .getParsedMeteringData(_resourceLoader.getResource("classpath:" + _meteringDataExcelName).getFile().getPath());
-        } catch (IOException e) {
+                    .getParsedMeteringData(_resourceLoader.getClassLoader().getResourceAsStream(_meteringDataExcelName));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         logger.info("<== getParsedMonthlyMeteringData() : Fetched Monthly Meter Data on file " + _meteringDataExcelName);

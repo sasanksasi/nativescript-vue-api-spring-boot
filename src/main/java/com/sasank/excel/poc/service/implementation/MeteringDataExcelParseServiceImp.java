@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +33,9 @@ public class MeteringDataExcelParseServiceImp implements MeteringDataExcelParseS
         );
     }
 
+
     @Override
-    public Set<MonthlyMeterData> getParsedMeteringData(String filename) {
+    public Set<MonthlyMeterData> getParsedMeteringData(InputStream filename) {
         logger.info("==> getParsedMeteringData() : Parsing EXCEL File :"+filename);
         Set<MonthlyMeterData> regionalMonthlyMeteringData = new HashSet<>();
         try {

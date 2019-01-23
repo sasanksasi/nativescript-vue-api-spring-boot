@@ -41,6 +41,20 @@ public class ExcelFileReader {
             }
         }
     }
+    public static void processAllSheetsToRows(InputStream filename, XlsxRowCallback xlsxRowCallback) throws Exception {
+        try (OPCPackage pkg = OPCPackage.open(filename)) {
+            XSSFReader xssfReader = new XSSFReader(pkg);
+            XMLReader parser = fetchSheetParser(xssfReader, xlsxRowCallback);
+
+            Iterator<InputStream> sheets = xssfReader.getSheetsData();
+            while (sheets.hasNext()) {
+                try (InputStream sheet = sheets.next()) {
+                    InputSource sheetSource = new InputSource(sheet);
+                    parser.parse(sheetSource);
+                }
+            }
+        }
+    }
 
     private static XMLReader fetchSheetParser(XSSFReader xssfReader, XlsxRowCallback xlsxRowCallback) throws Exception {
         XMLReader parser = SAXHelper.newXMLReader();

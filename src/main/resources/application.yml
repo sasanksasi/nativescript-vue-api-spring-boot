@@ -1,0 +1,6 @@
+data:
+  file:
+    path: 'static/tou.xlsx'
+
+server:
+  port: $PORT
